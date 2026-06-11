@@ -66,7 +66,8 @@ tr:nth-child(even){
 <div style="margin-bottom:20px;">
     
     <a
-        href="http://localhost:5000/api/export/excel"
+        
+        href="https://khorasan-backend.onrender.com/api/export/excel/"
         target="_blank"
         class="export-btn"
     >
@@ -97,7 +98,8 @@ async function loadRegistrations() {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/api/registrations"
+            // "http://localhost:5000/api/registrations"
+            "https://khorasan-backend.onrender.com/api/registrations/"
         );
 
         const registrations =
