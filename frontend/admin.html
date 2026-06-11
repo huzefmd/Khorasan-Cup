@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khorasan Cup Admin Panel</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+    padding:20px;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#1e293b;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #334155;
+    text-align:left;
+}
+
+th{
+    background:#c8a951;
+    color:black;
+}
+
+tr:nth-child(even){
+    background:#162033;
+}
+
+.status{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+.export-btn{
+    display:inline-block;
+    background:#22c55e;
+    color:white;
+    text-decoration:none;
+    padding:12px 20px;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+.export-btn:hover{
+    opacity:0.9;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Khorasan Cup Registrations</h1>
+
+<div style="margin-bottom:20px;">
+    
+    <a
+        href="http://localhost:5000/api/export/excel"
+        target="_blank"
+        class="export-btn"
+    >
+        📊 Export Registrations to Excel
+    </a>
+
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Team Name</th>
+            <th>Manager</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody id="registrationTable">
+    </tbody>
+</table>
+
+<script>
+
+async function loadRegistrations() {
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/registrations"
+        );
+
+        const registrations =
+            await response.json();
+
+        const table =
+            document.getElementById(
+                "registrationTable"
+            );
+
+        table.innerHTML = "";
+
+        registrations.forEach(team => {
+
+            table.innerHTML += `
+                <tr>
+                    <td>${team.clubName}</td>
+                    <td>${team.managerName}</td>
+                    <td>${team.contactNumber}</td>
+                    <td>${team.city}</td>
+                    <td class="status">
+                        ${team.registrationStatus}
+                    </td>
+                </tr>
+            `;
+        });
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert(
+            "Failed to load registrations"
+        );
+    }
+}
+
+loadRegistrations();
+
+</script>
+
+</body>
+</html>
