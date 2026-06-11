@@ -16,9 +16,7 @@ const registrationSchema = new mongoose.Schema(
     registrationStatus: {
         type: String,
         required: true,
-        unique: true,
         default: "Pending",
-      
     },
   },
   {
