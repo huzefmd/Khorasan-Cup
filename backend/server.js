@@ -23,6 +23,8 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Running`);
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server Running on port ${PORT}`);
 });
